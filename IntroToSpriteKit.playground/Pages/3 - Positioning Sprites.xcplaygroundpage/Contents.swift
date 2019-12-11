@@ -116,13 +116,19 @@ Once you have selected the block of code, press the **Command** and / keys at th
  */
 
 // Exercise 1: Write your code below.
-
+let star1 = SKSpriteNode(imageNamed: "star")
+star1.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
+scene.addChild(star1)
 
 // Exercise 2: Write your code below.
-
+let newCircle = SKSpriteNode(imageNamed: "circle")
+newCircle.position = CGPoint(x: scene.size.width, y: scene.size.height)
+scene.addChild(newCircle)
 
 // Exercise 3: Write your code below.
-
+let newSquare = SKSpriteNode(imageNamed: "square")
+newSquare.position = CGPoint(x: scene.size.width / 2, y: scene.size.height)
+scene.addChild(newSquare)
 
 /*:
 
