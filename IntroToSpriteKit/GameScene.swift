@@ -39,6 +39,12 @@ class GameScene: SKScene {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         
+        //horizontal shelf
+        let horizontalShelf = SKSpriteNode(imageNamed: "horizontal-shelf-red")
+        horizontalShelf.position = CGPoint(x: horizontalShelf.size.width / 2, y: self.size.height / 2)
+        horizontalShelf.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: -400, y: 50, width: 800, height: 1))
+        //self.addChild(horizontalShelf)
+        
         if let snowstorm = SKEmitterNode(fileNamed: "Snow2") {
 
             snowstorm.position = CGPoint(x: self.size.width / 2, y: self.size.height)

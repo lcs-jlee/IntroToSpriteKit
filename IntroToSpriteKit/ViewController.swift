@@ -39,6 +39,8 @@ class ViewController: NSViewController {
         
         // Present the scene (which is an instance of the GameScene class)
         skView.presentScene(scene)
+        
+        self.skView.showsPhysics = true
 
     }
 }
