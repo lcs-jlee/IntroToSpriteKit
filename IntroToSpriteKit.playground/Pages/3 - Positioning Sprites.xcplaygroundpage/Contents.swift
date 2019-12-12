@@ -125,7 +125,7 @@ let newCircle = SKSpriteNode(imageNamed: "circle")
 newCircle.position = CGPoint(x: scene.size.width, y: scene.size.height)
 scene.addChild(newCircle)
 
-// Exercise 3: Write your code below.
+/// Exercise 3: Write your code below.
 let newSquare = SKSpriteNode(imageNamed: "square")
 newSquare.position = CGPoint(x: scene.size.width / 2, y: scene.size.height)
 scene.addChild(newSquare)

@@ -204,12 +204,30 @@ scene.physicsWorld.gravity
  */
 
 // Exercise 1: Write your code below.
-
+//boulder.physicsBody?.restitution = 1
 // Exercise 2: Write your code below.
+/* for node in scene.children {
 
+    // Only look at nodes of type SKSpriteNode
+    if let thisNode = node as? SKSpriteNode {
+
+        // Only the crates
+        if thisNode.name == "one of the crates" {
+
+            // Add a physics body
+            thisNode.physicsBody = SKPhysicsBody(rectangleOf: thisNode.size)
+            thisNode.physicsBody?.restitution = 1
+        }
+
+    }
+
+}
+ */
 // Exercise 3: Write your code below.
+//hill.physicsBody?.friction = 0.0
 
 // Exercise 4: Write your code below.
+scene.physicsWorld.gravity = CGVector(dx: 0, dy: 9.8)
 
 
 /*:
