@@ -42,11 +42,7 @@ class GameScene: SKScene {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         
-        //horizontal shelf
-        let horizontalShelf = SKSpriteNode(imageNamed: "horizontal-shelf-red")
-        horizontalShelf.position = CGPoint(x: horizontalShelf.size.width / 2, y: self.size.height / 2)
-        horizontalShelf.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: -400, y: 50, width: 800, height: 1))
-        //self.addChild(horizontalShelf)
+        
         
         if let snowstorm = SKEmitterNode(fileNamed: "Snow2") {
 
@@ -57,13 +53,19 @@ class GameScene: SKScene {
         
         for x in 0...8 {
             let tile = SKSpriteNode(imageNamed: "tile")
-            tile.position = CGPoint(x: tile.size.width / 2 + CGFloat(x) * tile.size.width, y: tile.size.height / 2)
+            tile.position = CGPoint(x: tile.size.width / 2 + CGFloat(x) * (tile.size.width - 10), y: tile.size.height / 2)
             tile.zPosition = 2
             tile.physicsBody = SKPhysicsBody(texture: tile.texture!, alphaThreshold: 0.5, size: tile.size)
             tile.physicsBody?.isDynamic = false
             self.addChild(tile)
             
         }
+        
+//        //horizontal shelf
+//        let horizontalShelf = SKSpriteNode(imageNamed: "horizontal-shelf-red")
+//        horizontalShelf.position = CGPoint(x: horizontalShelf.size.width / 2, y: self.size.height / 2)
+//        horizontalShelf.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0, y: horizontalShelf.size.height, width: 800, height: 1))
+//        self.addChild(horizontalShelf)
         
         func addIceman() {
             let iceman = SKSpriteNode(imageNamed: "iceman")
@@ -136,13 +138,41 @@ class GameScene: SKScene {
         let actionAddRocket = SKAction.run(addRocket)
         let sequenceAddRocket = SKAction.sequence([actionAddRocket, actionWait])
         let actionRepeatlyAddRocket = SKAction.repeat(sequenceAddRocket, count: 10)
-        self.run(actionRepeatlyAddRocket)
-        
-        
-        //add letter
+        //self.run(actionRepeatlyAddRocket)
         
         
         
+        //add merry
+        func addMerryChristmas() {
+
+            // Make a merry christmas text
+            let merry = SKLabelNode(fontNamed: "Zapfino")
+            merry.fontSize = 60
+            merry.fontColor = .red
+            merry.text = "Merry"
+            merry.zPosition = 3
+            merry.position = CGPoint(x: self.size.width / 2 - 185, y: self.size.height / 2)
+            merry.alpha = 0
+            self.addChild(merry)
+            
+            let christmas = SKLabelNode(fontNamed: "Zapfino")
+            christmas.fontSize = 60
+            christmas.fontColor = treeGreen
+            christmas.text = "Christmas"
+            christmas.zPosition = 3
+            christmas.position = CGPoint(x: self.size.width / 2 + 145, y: self.size.height / 2)
+            christmas.alpha = 0
+            self.addChild(christmas)
+            
+            // Fade the warning in
+            let actionFadeIn = SKAction.fadeIn(withDuration: 1.0)
+            merry.run(actionFadeIn)
+            christmas.run(actionFadeIn)
+
+        }
+        let addLetter = SKAction.run(addMerryChristmas)
+        let rocketAndLetter = SKAction.sequence([actionRepeatlyAddRocket, addLetter])
+        self.run(rocketAndLetter)
         
         
         
