@@ -153,6 +153,8 @@ rocket.position = CGPoint(x: 300, y: rocket.size.height / 2)
 //                                 alphaThreshold: 0.5,
 //                                 size: rocket.size)
 scene.addChild(rocket)
+
+ㅣㄷ
 //// Create an empty array of SKTexture objects
 var rocketTextures: [SKTexture] = []
 //
@@ -174,6 +176,8 @@ let rocketAction = SKAction.group([actionRocketAnimation, wait])
 let goUp = SKAction.sequence([rocketAction, rocketBlastOff])
 
 rocket.run(goUp)
+
+
 /*:
  
  [Previous: Working With Text](@previous) | Page 8 | [Next: Particle Effects](@next)

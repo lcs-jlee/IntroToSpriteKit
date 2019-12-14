@@ -65,7 +65,7 @@ class GameScene: SKScene {
         func addIceman() {
             let iceman = SKSpriteNode(imageNamed: "iceman")
             // Vertical position just above top of the scen
-            let y = self.size.height - iceman.size.height
+            let y = self.size.height - iceman.size.height / 2
 
             // Horizontal position is random
             let x = CGFloat.random(in: 0.0...self.size.width)
@@ -95,8 +95,9 @@ class GameScene: SKScene {
         tree.position = CGPoint(x: 150, y: 200)
         self.addChild(tree)
         
+        
         let rocket = SKSpriteNode(imageNamed: "rocket")
-        rocket.position = CGPoint(x: 300, y: 150)
+        rocket.position = CGPoint(x: self.size.width / 2, y: 0)
         //rocket.physicsBody = SKPhysicsBody(texture: rocket.texture!,
         //                                 alphaThreshold: 0.5,
         //                                 size: rocket.size)
@@ -115,7 +116,7 @@ class GameScene: SKScene {
         let actionRocketAnimation = SKAction.animate(with: rocketTextures, timePerFrame: 0.4, resize: true, restore: false)
 
         let wait = SKAction.wait(forDuration: 3.0)
-        let rocketBlastOff = SKAction.moveBy(x: 0, y: 600, duration: 2)
+        let rocketBlastOff = SKAction.moveBy(x: 0, y: 2000, duration: 6)
 
         let rocketAction = SKAction.group([actionRocketAnimation, wait])
 
