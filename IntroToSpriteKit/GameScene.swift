@@ -14,12 +14,15 @@ class GameScene: SKScene {
     
     // Background music player
     var backgroundMusic: AVAudioPlayer?
+    // Green colour
+    let treeGreen = NSColor(calibratedRed: 42/255, green: 185/255, blue: 79/255, alpha: 1)
     
     // This function runs once to set up the scene
     override func didMove(to view: SKView) {
 
         // Set the background colour
         self.backgroundColor = .black
+        
         
 //        // Get a reference to the mp3 file in the app bundle
 //        let backgroundMusicFilePath = Bundle.main.path(forResource: "sleigh-bells-excerpt.mp3", ofType: nil)!
@@ -85,46 +88,79 @@ class GameScene: SKScene {
         }
         
         
+        
+        //add iceman
         let actionAddIceman = SKAction.run(addIceman)
         let actionWait = SKAction.wait(forDuration: 0.5)
         let sequenceAddThenWait = SKAction.sequence([actionAddIceman, actionWait])
         let actionRepeatlyAddIceman = SKAction.repeat(sequenceAddThenWait, count: 10)
         self.run(actionRepeatlyAddIceman)
 
+        //add tree
         let tree = SKSpriteNode(imageNamed: "tree")
         tree.position = CGPoint(x: 150, y: 200)
         self.addChild(tree)
         
+        func addRocket() {
+            let rocket = SKSpriteNode(imageNamed: "rocket")
+            let x = CGFloat.random(in: 0.0...self.size.width)
+            rocket.position = CGPoint(x: x , y: 0)
+            //rocket.physicsBody = SKPhysicsBody(texture: rocket.texture!,
+            //                                 alphaThreshold: 0.5,
+            //                                 size: rocket.size)
+            self.addChild(rocket)
+            //// Create an empty array of SKTexture objects
+            var rocketTextures: [SKTexture] = []
+            //
+            //// Now add the two images we need in the array
+            rocketTextures.append(SKTexture(imageNamed: "rocket_0"))
+            rocketTextures.append(SKTexture(imageNamed: "rocket_1"))
+            rocketTextures.append(SKTexture(imageNamed: "rocket_2"))
+            rocketTextures.append(SKTexture(imageNamed: "rocket_3"))
+            rocketTextures.append(SKTexture(imageNamed: "rocket_4"))
+            rocketTextures.append(SKTexture(imageNamed: "rocket_5"))
+            
+            let actionRocketAnimation = SKAction.animate(with: rocketTextures, timePerFrame: 0.4, resize: true, restore: false)
+
+            let wait = SKAction.wait(forDuration: 3.0)
+            let rocketBlastOff = SKAction.moveBy(x: 0, y: 2000, duration: 6)
+
+            let rocketAction = SKAction.group([actionRocketAnimation, wait])
+
+            let goUp = SKAction.sequence([rocketAction, rocketBlastOff])
+
+            rocket.run(goUp)
+        }
         
-        let rocket = SKSpriteNode(imageNamed: "rocket")
-        rocket.position = CGPoint(x: self.size.width / 2, y: 0)
-        //rocket.physicsBody = SKPhysicsBody(texture: rocket.texture!,
-        //                                 alphaThreshold: 0.5,
-        //                                 size: rocket.size)
-        self.addChild(rocket)
-        //// Create an empty array of SKTexture objects
-        var rocketTextures: [SKTexture] = []
-        //
-        //// Now add the two images we need in the array
-        rocketTextures.append(SKTexture(imageNamed: "rocket_0"))
-        rocketTextures.append(SKTexture(imageNamed: "rocket_1"))
-        rocketTextures.append(SKTexture(imageNamed: "rocket_2"))
-        rocketTextures.append(SKTexture(imageNamed: "rocket_3"))
-        rocketTextures.append(SKTexture(imageNamed: "rocket_5"))
+        //add rocket
+        let actionAddRocket = SKAction.run(addRocket)
+        let sequenceAddRocket = SKAction.sequence([actionAddRocket, actionWait])
+        let actionRepeatlyAddRocket = SKAction.repeat(sequenceAddRocket, count: 10)
+        self.run(actionRepeatlyAddRocket)
+        
+        
+        //add letter
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
 
-        let actionRocketAnimation = SKAction.animate(with: rocketTextures, timePerFrame: 0.4, resize: true, restore: false)
-
-        let wait = SKAction.wait(forDuration: 3.0)
-        let rocketBlastOff = SKAction.moveBy(x: 0, y: 2000, duration: 6)
-
-        let rocketAction = SKAction.group([actionRocketAnimation, wait])
-
-        let goUp = SKAction.sequence([rocketAction, rocketBlastOff])
-
-        rocket.run(goUp)
+        
+        
         
     }
+    
+    
     
     // This runs before each frame is rendered
     // Avoid putting computationally intense code in this function to maintain high performance
