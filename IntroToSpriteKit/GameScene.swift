@@ -62,11 +62,7 @@ class GameScene: SKScene {
             
         }
         
-//        //horizontal shelf
-//        let horizontalShelf = SKSpriteNode(imageNamed: "horizontal-shelf-red")
-//        horizontalShelf.position = CGPoint(x: horizontalShelf.size.width / 2, y: self.size.height / 2)
-//        horizontalShelf.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0, y: horizontalShelf.size.height, width: 800, height: 1))
-//        self.addChild(horizontalShelf)
+
         
         func addIceman() {
             let iceman = SKSpriteNode(imageNamed: "iceman")
@@ -90,7 +86,22 @@ class GameScene: SKScene {
 
         }
         
+        //take care of latters
+        let wait8seconds = SKAction.wait(forDuration: 8.0)
+        let wait10seconds = SKAction.wait(forDuration: 10.0)
         
+        //MC: Merry Christmas
+        let addMC = SKAction.run(addMerryChristmas)
+        //ST: Safe Travel
+        let addST  = SKAction.run(addSafeTravel)
+        
+        let waitAndAddMC = SKAction.sequence([wait8seconds, addMC])
+        let waitAndAddST = SKAction.sequence([wait10seconds, addST])
+        
+        self.run(waitAndAddMC)
+        self.run(waitAndAddST)
+        
+        //take care of end credit
         let waitTwelveSeconds = SKAction.wait(forDuration: 12.0)
         let endCredit = SKAction.run(removeEverythingThenShowEndCredits)
         let prepareEndCredit = SKAction.sequence([waitTwelveSeconds,endCredit])
@@ -172,54 +183,12 @@ class GameScene: SKScene {
         
         deer.run(actionWalkAndMoveFiveTimes)
         
-        //add merry
-        func addMerryChristmas() {
-
-            // Make a merry christmas text
-            let merry = SKLabelNode(fontNamed: "Zapfino")
-            merry.fontSize = 60
-            merry.fontColor = .red
-            merry.text = "Merry"
-            merry.zPosition = 3
-            merry.position = CGPoint(x: self.size.width / 2 - 185, y: self.size.height / 2 + 100)
-            merry.alpha = 0
-            self.addChild(merry)
-            
-            let christmas = SKLabelNode(fontNamed: "Zapfino")
-            christmas.fontSize = 60
-            christmas.fontColor = treeGreen
-            christmas.text = "Christmas"
-            christmas.zPosition = 3
-            christmas.position = CGPoint(x: self.size.width / 2 + 145, y: self.size.height / 2 + 100)
-            christmas.alpha = 0
-            self.addChild(christmas)
-            
-            // Fade the warning in
-            let actionFadeIn = SKAction.fadeIn(withDuration: 1.0)
-            merry.run(actionFadeIn)
-            christmas.run(actionFadeIn)
-
-        }
+        self.run(actionRepeatlyAddRocket)
         
-        func addSafeTravel() {
-            let safeTravel = SKLabelNode(fontNamed: "Zapfino")
-            safeTravel.fontSize = 32
-            safeTravel.fontColor = .white
-            safeTravel.text = "... AND Safe Travel"
-            safeTravel.zPosition = 3
-            safeTravel.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2 - 20)
-            safeTravel.alpha = 0
-            self.addChild(safeTravel)
-            let actionFadeIn = SKAction.fadeIn(withDuration: 1.0)
-            safeTravel.run(actionFadeIn)
-        }
         
-        let addMC = SKAction.run(addMerryChristmas)
-        let rocketAndMC = SKAction.sequence([actionRepeatlyAddRocket, addMC])
-        let addST  = SKAction.run(addSafeTravel)
-        let rocketAndLetters = SKAction.sequence([rocketAndMC, addST])
         
-        self.run(rocketAndLetters)
+    
+       
         
         
         
@@ -253,6 +222,47 @@ class GameScene: SKScene {
         and.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2 - 50)
         self.addChild(and)
         
+    }
+    
+    func addMerryChristmas() {
+
+        // Make a merry christmas text
+        let merry = SKLabelNode(fontNamed: "Zapfino")
+        merry.fontSize = 60
+        merry.fontColor = .red
+        merry.text = "Merry"
+        merry.zPosition = 3
+        merry.position = CGPoint(x: self.size.width / 2 - 185, y: self.size.height / 2 + 100)
+        merry.alpha = 0
+        self.addChild(merry)
+        
+        let christmas = SKLabelNode(fontNamed: "Zapfino")
+        christmas.fontSize = 60
+        christmas.fontColor = treeGreen
+        christmas.text = "Christmas"
+        christmas.zPosition = 3
+        christmas.position = CGPoint(x: self.size.width / 2 + 145, y: self.size.height / 2 + 100)
+        christmas.alpha = 0
+        self.addChild(christmas)
+        
+        // Fade the warning in
+        let actionFadeIn = SKAction.fadeIn(withDuration: 1.0)
+        merry.run(actionFadeIn)
+        christmas.run(actionFadeIn)
+
+    }
+    
+    func addSafeTravel() {
+        let safeTravel = SKLabelNode(fontNamed: "Zapfino")
+        safeTravel.fontSize = 32
+        safeTravel.fontColor = .white
+        safeTravel.text = "... AND Safe Travel"
+        safeTravel.zPosition = 3
+        safeTravel.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2 - 20)
+        safeTravel.alpha = 0
+        self.addChild(safeTravel)
+        let actionFadeIn = SKAction.fadeIn(withDuration: 1.0)
+        safeTravel.run(actionFadeIn)
     }
     
     
