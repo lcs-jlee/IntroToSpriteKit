@@ -140,7 +140,32 @@ class GameScene: SKScene {
         let actionRepeatlyAddRocket = SKAction.repeat(sequenceAddRocket, count: 10)
         //self.run(actionRepeatlyAddRocket)
         
+        //add deer
+        let deer = SKSpriteNode(imageNamed: "deer")
+        deer.position = CGPoint(x: 0, y: 0)
+        self.addChild(deer)
         
+        var walkingTextures: [SKTexture] = []
+    
+        //// Now add the two images we need in the array
+        walkingTextures.append(SKTexture(imageNamed: "deer_1"))
+        walkingTextures.append(SKTexture(imageNamed: "deer_2"))
+        walkingTextures.append(SKTexture(imageNamed: "deer_3"))
+        walkingTextures.append(SKTexture(imageNamed: "deer_4"))
+        walkingTextures.append(SKTexture(imageNamed: "deer_5"))
+        
+        let actionWalkingAnimation = SKAction.animate(with: walkingTextures, timePerFrame: 0.05, resize: true, restore: true)
+        
+        let actionMoveForward = SKAction.moveBy(x: 30, y: 0, duration: 0.1)
+        let actionMoveUp = SKAction.moveBy(x: 0, y: 30, duration: 0.1)
+        
+        let actionBothWay = SKAction.group([actionMoveForward, actionMoveUp])
+        
+        let actionWalkAndMove = SKAction.group([actionWalkingAnimation, actionBothWay])
+        
+        let actionWalkAndMoveFiveTimes = SKAction.repeat(actionWalkAndMove, count: 25)
+        
+        deer.run(actionWalkAndMoveFiveTimes)
         
         //add merry
         func addMerryChristmas() {
@@ -172,6 +197,7 @@ class GameScene: SKScene {
         }
         let addLetter = SKAction.run(addMerryChristmas)
         let rocketAndLetter = SKAction.sequence([actionRepeatlyAddRocket, addLetter])
+        
         self.run(rocketAndLetter)
         
         
