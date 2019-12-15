@@ -87,16 +87,16 @@ class GameScene: SKScene {
         }
         
         //take care of latters
-        let wait8seconds = SKAction.wait(forDuration: 8.0)
-        let wait10seconds = SKAction.wait(forDuration: 10.0)
+        let wait6seconds = SKAction.wait(forDuration: 6.0)
+        let wait8halfseconds = SKAction.wait(forDuration: 8.5)
         
         //MC: Merry Christmas
         let addMC = SKAction.run(addMerryChristmas)
         //ST: Safe Travel
         let addST  = SKAction.run(addSafeTravel)
         
-        let waitAndAddMC = SKAction.sequence([wait8seconds, addMC])
-        let waitAndAddST = SKAction.sequence([wait10seconds, addST])
+        let waitAndAddMC = SKAction.sequence([wait6seconds, addMC])
+        let waitAndAddST = SKAction.sequence([wait8halfseconds, addST])
         
         self.run(waitAndAddMC)
         self.run(waitAndAddST)
