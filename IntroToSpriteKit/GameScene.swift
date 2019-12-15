@@ -25,18 +25,19 @@ class GameScene: SKScene {
         
         
 //        // Get a reference to the mp3 file in the app bundle
-//        let backgroundMusicFilePath = Bundle.main.path(forResource: "sleigh-bells-excerpt.mp3", ofType: nil)!
-//
-//        // Convert the file path string to a URL (Uniform Resource Locator)
-//        let backgroundMusicFileURL = URL(fileURLWithPath: backgroundMusicFilePath)
-//
-//        // Attempt to open and play the file at the given URL
-//        do {
-//            backgroundMusic = try AVAudioPlayer(contentsOf: backgroundMusicFileURL)
-//            backgroundMusic?.play()
-//        } catch {
-//            // Do nothing if the sound file could not be played
-//        }
+        let backgroundMusicFilePath = Bundle.main.path(forResource: "sleigh-bells-excerpt.mp3", ofType: nil)!
+
+        // Convert the file path string to a URL (Uniform Resource Locator)
+        let backgroundMusicFileURL = URL(fileURLWithPath: backgroundMusicFilePath)
+
+        // Attempt to open and play the file at the given URL
+        do {
+            backgroundMusic = try AVAudioPlayer(contentsOf: backgroundMusicFileURL)
+            backgroundMusic?.play()
+        } catch {
+            // Do nothing if the sound file could not be played
+        }
+        
         self.backgroundColor = NSColor(calibratedHue: 240/360, saturation: 80/100, brightness: 10/100, alpha: 1)
         
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
@@ -160,14 +161,14 @@ class GameScene: SKScene {
         
         let actionWalkingAnimation = SKAction.animate(with: walkingTextures, timePerFrame: 0.05, resize: true, restore: true)
         
-        let actionMoveForward = SKAction.moveBy(x: 30, y: 0, duration: 0.1)
-        let actionMoveUp = SKAction.moveBy(x: 0, y: 30, duration: 0.1)
+        let actionMoveForward = SKAction.moveBy(x: 15, y: 0, duration: 0.1)
+        let actionMoveUp = SKAction.moveBy(x: 0, y: 15, duration: 0.1)
         
         let actionBothWay = SKAction.group([actionMoveForward, actionMoveUp])
         
         let actionWalkAndMove = SKAction.group([actionWalkingAnimation, actionBothWay])
         
-        let actionWalkAndMoveFiveTimes = SKAction.repeat(actionWalkAndMove, count: 25)
+        let actionWalkAndMoveFiveTimes = SKAction.repeat(actionWalkAndMove, count: 60)
         
         deer.run(actionWalkAndMoveFiveTimes)
         
@@ -180,7 +181,7 @@ class GameScene: SKScene {
             merry.fontColor = .red
             merry.text = "Merry"
             merry.zPosition = 3
-            merry.position = CGPoint(x: self.size.width / 2 - 185, y: self.size.height / 2)
+            merry.position = CGPoint(x: self.size.width / 2 - 185, y: self.size.height / 2 + 100)
             merry.alpha = 0
             self.addChild(merry)
             
@@ -189,7 +190,7 @@ class GameScene: SKScene {
             christmas.fontColor = treeGreen
             christmas.text = "Christmas"
             christmas.zPosition = 3
-            christmas.position = CGPoint(x: self.size.width / 2 + 145, y: self.size.height / 2)
+            christmas.position = CGPoint(x: self.size.width / 2 + 145, y: self.size.height / 2 + 100)
             christmas.alpha = 0
             self.addChild(christmas)
             
@@ -199,26 +200,31 @@ class GameScene: SKScene {
             christmas.run(actionFadeIn)
 
         }
-        let addLetter = SKAction.run(addMerryChristmas)
-        let rocketAndLetter = SKAction.sequence([actionRepeatlyAddRocket, addLetter])
         
-        self.run(rocketAndLetter)
+        func addSafeTravel() {
+            let safeTravel = SKLabelNode(fontNamed: "Zapfino")
+            safeTravel.fontSize = 32
+            safeTravel.fontColor = .white
+            safeTravel.text = "... AND Safe Travel"
+            safeTravel.zPosition = 3
+            safeTravel.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2 - 20)
+            safeTravel.alpha = 0
+            self.addChild(safeTravel)
+            let actionFadeIn = SKAction.fadeIn(withDuration: 1.0)
+            safeTravel.run(actionFadeIn)
+        }
         
+        let addMC = SKAction.run(addMerryChristmas)
+        let rocketAndMC = SKAction.sequence([actionRepeatlyAddRocket, addMC])
+        let addST  = SKAction.run(addSafeTravel)
+        let rocketAndLetters = SKAction.sequence([rocketAndMC, addST])
         
-        
-        
-        
-        
-        
-        
-        
-        
-
-
+        self.run(rocketAndLetters)
         
         
         
     }
+    
     func removeEverythingThenShowEndCredits() {
         
         // Remove all existing children nodes
@@ -233,7 +239,7 @@ class GameScene: SKScene {
         let by = SKLabelNode(fontNamed: "Helvetica Neue")
         by.fontSize = 48
         by.fontColor = .white
-        by.text = "Brought to you by Mr. Lee"
+        by.text = "Brought to you by Mr. Lee (Jeewoo)"
         by.zPosition = 3
         by.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2 + 50)
         self.addChild(by)
