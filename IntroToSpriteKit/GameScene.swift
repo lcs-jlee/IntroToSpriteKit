@@ -90,6 +90,10 @@ class GameScene: SKScene {
         }
         
         
+        let waitTwelveSeconds = SKAction.wait(forDuration: 12.0)
+        let endCredit = SKAction.run(removeEverythingThenShowEndCredits)
+        let prepareEndCredit = SKAction.sequence([waitTwelveSeconds,endCredit])
+        self.run(prepareEndCredit)
         
         //add iceman
         let actionAddIceman = SKAction.run(addIceman)
@@ -213,6 +217,35 @@ class GameScene: SKScene {
 
         
         
+        
+    }
+    func removeEverythingThenShowEndCredits() {
+        
+        // Remove all existing children nodes
+        self.removeAllChildren()
+        
+        // Change background to black
+        self.backgroundColor = .black
+        
+        // Add end credits
+        
+        // By...
+        let by = SKLabelNode(fontNamed: "Helvetica Neue")
+        by.fontSize = 48
+        by.fontColor = .white
+        by.text = "Brought to you by Mr. Lee"
+        by.zPosition = 3
+        by.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2 + 50)
+        self.addChild(by)
+        
+        // And...
+        let and = SKLabelNode(fontNamed: "Helvetica Neue")
+        and.fontSize = 36
+        and.fontColor = .white
+        and.text = "and the Grade 12 Computer Science class"
+        and.zPosition = 3
+        and.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2 - 50)
+        self.addChild(and)
         
     }
     
