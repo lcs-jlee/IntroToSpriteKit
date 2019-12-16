@@ -24,7 +24,7 @@ class GameScene: SKScene {
         self.backgroundColor = .black
         
         
-//        // Get a reference to the mp3 file in the app bundle
+        // Get a reference to the mp3 file in the app bundle
         let backgroundMusicFilePath = Bundle.main.path(forResource: "sleigh-bells-excerpt.mp3", ofType: nil)!
 
         // Convert the file path string to a URL (Uniform Resource Locator)
@@ -39,19 +39,17 @@ class GameScene: SKScene {
         }
         
         self.backgroundColor = NSColor(calibratedHue: 240/360, saturation: 80/100, brightness: 10/100, alpha: 1)
-        
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         
-        
-        
+       //create snow storm
         if let snowstorm = SKEmitterNode(fileNamed: "Snow2") {
-
             snowstorm.position = CGPoint(x: self.size.width / 2, y: self.size.height)
             self.addChild(snowstorm)
-
+            
         }
         
+        //create tile at the bottom
         for x in 0...8 {
             let tile = SKSpriteNode(imageNamed: "tile")
             tile.position = CGPoint(x: tile.size.width / 2 + CGFloat(x) * (tile.size.width - 10), y: tile.size.height / 2)
@@ -62,8 +60,7 @@ class GameScene: SKScene {
             
         }
         
-
-        
+        //function that adds iceman
         func addIceman() {
             let iceman = SKSpriteNode(imageNamed: "iceman")
             // Vertical position just above top of the scen
@@ -73,17 +70,13 @@ class GameScene: SKScene {
             let x = CGFloat.random(in: 0.0...self.size.width)
             
             iceman.position = CGPoint(x: x, y: y)
-            
             iceman.physicsBody = SKPhysicsBody(texture: iceman.texture!, alphaThreshold: 0.5, size: iceman.size)
-            
             iceman.physicsBody?.restitution = 0.5
-            
             iceman.physicsBody?.mass = 20
-
             iceman.physicsBody?.usesPreciseCollisionDetection = true
 
             self.addChild(iceman)
-
+            
         }
         
         //take care of latters
@@ -119,6 +112,7 @@ class GameScene: SKScene {
         tree.position = CGPoint(x: 150, y: 200)
         self.addChild(tree)
         
+        //function that adds rocket
         func addRocket() {
             let rocket = SKSpriteNode(imageNamed: "rocket")
             let x = CGFloat.random(in: 0.0...self.size.width)
@@ -139,12 +133,9 @@ class GameScene: SKScene {
             rocketTextures.append(SKTexture(imageNamed: "rocket_5"))
             
             let actionRocketAnimation = SKAction.animate(with: rocketTextures, timePerFrame: 0.4, resize: true, restore: false)
-
             let wait = SKAction.wait(forDuration: 3.0)
             let rocketBlastOff = SKAction.moveBy(x: 0, y: 2000, duration: 6)
-
             let rocketAction = SKAction.group([actionRocketAnimation, wait])
-
             let goUp = SKAction.sequence([rocketAction, rocketBlastOff])
 
             rocket.run(goUp)
@@ -154,46 +145,37 @@ class GameScene: SKScene {
         let actionAddRocket = SKAction.run(addRocket)
         let sequenceAddRocket = SKAction.sequence([actionAddRocket, actionWait])
         let actionRepeatlyAddRocket = SKAction.repeat(sequenceAddRocket, count: 10)
-        //self.run(actionRepeatlyAddRocket)
         
         //add deer
         let deer = SKSpriteNode(imageNamed: "deer")
         deer.position = CGPoint(x: 0, y: 0)
         self.addChild(deer)
         
+        //array for walking animation of deer
         var walkingTextures: [SKTexture] = []
-    
-        //// Now add the two images we need in the array
+
         walkingTextures.append(SKTexture(imageNamed: "deer_1"))
         walkingTextures.append(SKTexture(imageNamed: "deer_2"))
         walkingTextures.append(SKTexture(imageNamed: "deer_3"))
         walkingTextures.append(SKTexture(imageNamed: "deer_4"))
         walkingTextures.append(SKTexture(imageNamed: "deer_5"))
         
+        //action for deer
         let actionWalkingAnimation = SKAction.animate(with: walkingTextures, timePerFrame: 0.05, resize: true, restore: true)
-        
         let actionMoveForward = SKAction.moveBy(x: 15, y: 0, duration: 0.1)
         let actionMoveUp = SKAction.moveBy(x: 0, y: 15, duration: 0.1)
-        
         let actionBothWay = SKAction.group([actionMoveForward, actionMoveUp])
-        
         let actionWalkAndMove = SKAction.group([actionWalkingAnimation, actionBothWay])
-        
         let actionWalkAndMoveFiveTimes = SKAction.repeat(actionWalkAndMove, count: 60)
         
         deer.run(actionWalkAndMoveFiveTimes)
         
+        //repeatly add rocket
         self.run(actionRepeatlyAddRocket)
-        
-        
-        
-    
-       
-        
-        
         
     }
     
+    //end credit
     func removeEverythingThenShowEndCredits() {
         
         // Remove all existing children nodes
@@ -224,6 +206,7 @@ class GameScene: SKScene {
         
     }
     
+    // "Merry Christmas"
     func addMerryChristmas() {
 
         // Make a merry christmas text
@@ -252,6 +235,7 @@ class GameScene: SKScene {
 
     }
     
+    // "Sage Travel"
     func addSafeTravel() {
         let safeTravel = SKLabelNode(fontNamed: "Zapfino")
         safeTravel.fontSize = 32

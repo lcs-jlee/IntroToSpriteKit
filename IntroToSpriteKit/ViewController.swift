@@ -22,8 +22,7 @@ class ViewController: NSViewController {
         // 1. When ready to make screen recording, uncomment line 22 and comment out line 23
         // 2. Choose Product > Clean Build Folder to be sure Xcode picks up the window size change
         self.skView.frame = NSRect(x: 0, y: 0, width: 1200, height: 900)
-        //self.skView.frame = NSRect(x: 0, y: 0, width: 800, height: 600)
-
+       
         // Create a scene based on the GameScene class
         // Scene size is a bit smaller but will scale up to fill the window
         let sceneSize = CGSize(width: 800, height: 600)
@@ -31,11 +30,11 @@ class ViewController: NSViewController {
         scene.scaleMode = .aspectFill
         
         // Show frames per second in the view
-        self.skView.showsFPS = true
+       // self.skView.showsFPS = true
         
         // Keep track of how many nodes (visual elements) are on screen
         // (The fewer nodes the better for performance reasons)
-        self.skView.showsNodeCount = true
+        //self.skView.showsNodeCount = true
         
         // Present the scene (which is an instance of the GameScene class)
         skView.presentScene(scene)
